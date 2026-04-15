@@ -1,12 +1,12 @@
 import os
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from flask import Flask
 
-PORT = int(os.environ.get("PORT", 8080))
+app = Flask(__name__)
 
-class H(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"Data Analysis Toolkit LIVE")
+@app.route("/")
+def home():
+    return "Data Analysis Toolkit LIVE"
 
-HTTPServer(("0.0.0.0", PORT), H).serve_forever()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
